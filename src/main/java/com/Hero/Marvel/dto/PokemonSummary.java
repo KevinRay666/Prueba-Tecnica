@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
-@Setter
-public class Response {
+ @Getter
+ @Setter
+public class PokemonSummary {
 
-    String name;
-    Integer edad;
+    private String name;
+    private String url;
     
 }
