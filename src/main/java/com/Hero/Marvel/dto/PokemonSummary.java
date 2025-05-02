@@ -10,6 +10,5 @@ import lombok.Setter;
 public class PokemonSummary {
 
     private String name;
-    private String url;
     
 }
