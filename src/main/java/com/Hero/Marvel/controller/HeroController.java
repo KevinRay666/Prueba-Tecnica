@@ -26,9 +26,16 @@ public class HeroController {
     private HeroService heroService;
 
     @GetMapping("/pokemon")
-    public ResponseEntity<ApiResponse> getAll(){
+    public ResponseEntity<ApiResponse> getAll(@RequestParam int limit){
 
-        ResponseGet list = heroService.getResponse();
+        if(limit <= 0){
+
+            ApiResponse response = new ApiResponse("BAD_REQUEST", null);
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+
+        }
+
+        ResponseGet list = heroService.getResponse(limit);
         ApiResponse response = new ApiResponse("SUCCES", list);
         return new ResponseEntity<>(response,HttpStatus.OK);
         

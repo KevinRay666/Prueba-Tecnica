@@ -19,9 +19,9 @@ public class HeroService {
     @Value("${pokemon.api.url.id}")
     private String API_URL_GET_ID;
 
-    public  ResponseGet getResponse(){
+    public  ResponseGet getResponse(int limit){
         RestTemplate restTemplate = new RestTemplate();
-        ResponseGet response = restTemplate.getForObject(API_URL_GET_ALL, ResponseGet.class);
+        ResponseGet response = restTemplate.getForObject(API_URL_GET_ALL + limit, ResponseGet.class);
         response.setItems(response.getResults().size());
         return response;
     }
