@@ -13,6 +13,7 @@ import com.Hero.Marvel.dto.ApiResponse;
 import com.Hero.Marvel.dto.PokemonDto;
 import com.Hero.Marvel.dto.ResponseGet;
 import com.Hero.Marvel.service.HeroService;
+import com.Hero.Marvel.util.BadResponse;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,15 +29,18 @@ public class HeroController {
     @GetMapping("/pokemon")
     public ResponseEntity<ApiResponse> getAll(@RequestParam int limit){
 
-        if(limit <= 0){
+        if(limit <= 0 || limit >=100){
 
-            ApiResponse response = new ApiResponse("BAD_REQUEST", null);
+            BadResponse badResponse = new BadResponse(null, null);
+            badResponse.setErrorCode("INVALID_LIMIT");
+            badResponse.setMessage("Limit Invalido");
+            ApiResponse response = new ApiResponse("ERROR", "CANCEL",badResponse);
             return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 
         }
 
         ResponseGet list = heroService.getResponse(limit);
-        ApiResponse response = new ApiResponse("SUCCES", list);
+        ApiResponse response = new ApiResponse("SUCCES","CONTINUE",list);
         return new ResponseEntity<>(response,HttpStatus.OK);
         
     }
@@ -48,12 +52,15 @@ public class HeroController {
 
             if(pokemon == null){
 
-                ApiResponse response = new ApiResponse("BAD_REQUEST", null);
+                BadResponse badResponse = new BadResponse(null, null);
+                badResponse.setErrorCode("ID_INVALIDO");
+                badResponse.setMessage("Ingrese un Id valido");
+                ApiResponse response = new ApiResponse("ERROR", "CANCEL",badResponse);
                 return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 
             }
 
-            ApiResponse response = new ApiResponse("SUCCES", pokemon);
+            ApiResponse response = new ApiResponse("SUCCES","CONTINUE",pokemon);
             return new ResponseEntity<>(response,HttpStatus.OK);
         
     }

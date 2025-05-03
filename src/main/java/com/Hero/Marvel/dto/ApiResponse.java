@@ -8,11 +8,13 @@ import lombok.Setter;
 public class ApiResponse {
     
     String status;
+    String action;
     Object data;
 
-    public ApiResponse(String status, Object data){
+    public ApiResponse(String status, String action, Object data){
         this.data = data;
         this.status = status;
+        this.action = action;
     }
     
 }

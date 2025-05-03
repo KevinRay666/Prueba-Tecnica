@@ -15,5 +15,6 @@ public class PokemonDto {
     String name;
     Integer height;
     List<Abilities> abilities;
+    List<Types> types;
     
 }
